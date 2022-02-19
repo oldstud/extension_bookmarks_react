@@ -2,11 +2,18 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { DOMMessage, DOMMessageResponse } from './types';
+import { LoginForm } from "./Components/Auth/LoginForm"
+import { LoginDataI } from "./interface/auth.interface"
+import { LoginService } from "./services/login.helper.service"
 
 function App() {
 
   const [title, setTitle] = React.useState('');
   const [headlines, setHeadlines] = React.useState<string[]>([]);
+
+  React.useEffect(() =>{
+    console.log('Init') // add method get user from local storage and if user upsent need visible form auth
+  },[])
   
   React.useEffect(() => {
     /**
@@ -34,6 +41,11 @@ function App() {
     });
   });
 
+  const handlerLogin = (loginData: LoginDataI):void =>{
+    console.log('LOGIN DATA', loginData) 
+    LoginService(loginData);
+  }
+
   const handleTest = ():void =>{
     console.log('hello from app')
     console.log(title)
@@ -45,6 +57,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
 
         <button onClick={handleTest}>Click me</button>
+        <LoginForm onAddContact={ handlerLogin }/>
       </header>
     </div>
   );
