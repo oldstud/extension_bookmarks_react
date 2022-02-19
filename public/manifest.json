@@ -5,7 +5,7 @@
   "manifest_version": 3,
   "action": {
       "default_popup": "index.html",
-      "default_title": "Open the popup"
+      "default_title": "Bookmark extension"
   },
   "content_scripts": [
     {
@@ -14,9 +14,9 @@
     }
  ],
   "icons": {
-      "16": "logo192.png",
-      "48": "logo192.png",
-      "128": "logo192.png"
+      "16": "bookmark-logo.png",
+      "48": "bookmark-logo.png",
+      "128": "bookmark-logo.png"
   },
   "permissions": [
     "activeTab"

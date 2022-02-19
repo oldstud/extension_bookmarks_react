@@ -3,6 +3,6 @@ export type DOMMessage = {
   }
   
   export type DOMMessageResponse = {
+    url: string;
     title: string;
-    headlines: string[];
   }
