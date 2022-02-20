@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { LoginDataI } from "../interface/auth.interface"
 import * as HTTPService from './index'
+import { UserI } from '../interface/user.interface';
 
-const token = {
+const tokenConfig = {
     set(token: string) {
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
     },
@@ -11,16 +12,16 @@ const token = {
     },
   };
 
-export async function LoginService(data : LoginDataI):Promise< any > {
+export async function LoginService(data : LoginDataI):Promise< UserI > {
   const response = await HTTPService.httpLogin(data);
   const user = response.data.data;
-  //SaveToBackgroundScript(user)
-  token.set(user.token);
+  tokenConfig.set(user.token);
   console.log("User", user) 
   return user;
 }
 
 export async function LogOutService():Promise<any> {
    const response = await HTTPService.httpLogOut();
+   tokenConfig.unset();
    return response
 }
