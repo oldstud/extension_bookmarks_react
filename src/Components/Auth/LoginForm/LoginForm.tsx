@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { LoginDataI } from "../../../interface/auth.interface"
+import { validateEmail, validatePassword } from '../../../utils/validateInput.utils'
+import style from './style.module.css';
 
 type onAddContactType = (loginData:LoginDataI) => void;
 interface PropsI {
@@ -10,6 +12,15 @@ export const LoginForm:React.FC< PropsI >=(props)=> {
   const { onAddContact } = props;
   const [emailValue, setEmailValue] = React.useState('');
   const [passwordValue, setPasswordValue] =  React.useState('');
+  const [validateEmailStatus, setValidateEmailStatus] =  React.useState(false);
+  const [validatePassvordStatus, setValidatePassvordStatus] =  React.useState(false);
+  const [isDisabledButton, setIsDisabledButton] =  React.useState(true);
+
+  useEffect(() =>{
+    setValidateEmailStatus(validateEmail(emailValue));
+    setValidatePassvordStatus(validatePassword(passwordValue))
+    setIsDisabledButton(!(emailValue && passwordValue && validateEmailStatus && validatePassvordStatus));
+  },[emailValue, passwordValue, isDisabledButton, validateEmailStatus, validatePassvordStatus])
 
   const handlerInput = (e:any) => {
     const { name, value } = e.target;
@@ -36,37 +47,50 @@ export const LoginForm:React.FC< PropsI >=(props)=> {
         email: emailValue,
         password: passwordValue
     }
-    onAddContact(loginData);
-    resetForm();
+    const isValidForm = validatePassvordStatus && validateEmailStatus   
+    isValidForm && onAddContact(loginData);
+    isValidForm && resetForm();
   };
 
    return(
-       <form onSubmit={handlerFormSubmit}>
-       <label>
-         Email:
+     <form className={style.form} onSubmit={handlerFormSubmit}>
+       
+      <div className={style.controlWrapper}>
          <input
+           placeholder="Enter you email"
+           id='inputEmail'
            type="text"
            name="email"
            onChange={handlerInput}
            value={emailValue}
-           placeholder="YOU EMAIL"
            required
          />
-       </label>
-       <label>
-         Password:
+         <label htmlFor='inputEmail'>
+           Email:
+         </label>
+       {emailValue && !validateEmailStatus && (<span className={style.helperText}>Email not valid</span>)} 
+      </div>
+         
+      <div className={style.controlWrapper_last}>
          <input
+           placeholder="Enter you password"
+           id='inputPassword'
            type="password"
            name="password"
            onChange={handlerInput}
            value={passwordValue}
-           placeholder="YOU PASSWORD"
-           min="1"
-           max="50"
+           minLength={8}
+           maxLength={50}
+           autoComplete="false"
            required
          />
-       </label>
-       <button type="submit">Log In</button>
+         <label htmlFor='inputPassword'>
+           Password:
+         </label>
+         { passwordValue && !validatePassvordStatus && (<span className={style.helperText}>Password not valid</span>) }
+      </div>  
+
+      <button className={style.buttonSubmit} type="submit" disabled={ isDisabledButton }>Log In</button>
      </form>
    )
 }

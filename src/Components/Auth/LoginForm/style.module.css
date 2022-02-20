@@ -1,0 +1,123 @@
+
+.form {
+    width: 400px;
+    margin:20px auto;
+    display:flex;
+    flex-direction: column;
+}
+
+.form label,
+.form input {
+  transition: all 0.3s;
+  touch-action: manipulation;
+}
+
+.form input {
+  padding-left: 10px;
+  font-size: 14px;
+  height: 30px;
+  border: 2px solid rgb(232, 233, 230);
+  border-radius: 4px;
+  outline: none;
+  font-family: inherit;
+  -webkit-box-shadow: inset 4px -2px 8px -1px rgba(0,0,0,0.55); 
+  box-shadow: inset 4px -2px 8px -1px rgba(0,0,0,0.55);
+  cursor: text;
+}
+
+.form input:focus {
+  outline: 0;
+  border: 2px solid rgb(238, 185, 41);
+}
+
+.form label {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form input:placeholder-shown + label {
+  cursor: text;
+  color: #666;
+  font-size: 14px;
+  text-align: left;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  white-space: nowrap;
+  transform-origin: left bottom;
+  transform: translate(0, 2.125rem) scale(1);
+}
+
+::-webkit-input-placeholder {
+  opacity: 0;
+  transition: inherit;
+}
+
+.form input:focus::-webkit-input-placeholder {
+  opacity: 1;
+}
+
+.form input:not(:placeholder-shown) + label,
+.form input:focus + label {
+  transform: translate(0, 0) scale(0.8);
+  transform-origin: left bottom;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: left;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  white-space: nowrap;
+}
+
+.controlWrapper {
+  position: relative;
+  display: flex;
+  flex-flow: column-reverse;
+  margin-bottom: 10px;
+}
+
+.controlWrapper_last {
+    position: relative;
+    display: flex;
+    flex-flow: column-reverse;
+    margin-bottom: 35px;
+}  
+
+.buttonSubmit{
+    width: 200px;
+    height: 35px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 600;
+    background: #fbc133;
+    border: none;
+    outline: none;
+    align-self: center;
+    -webkit-box-shadow: -2px 3px 5px 1px rgba(0,0,0,0.78); 
+    box-shadow: -2px 3px 5px 1px rgba(0,0,0,0.78);
+    transition: all 0.2s ease-in;
+    cursor: pointer;
+}
+
+.buttonSubmit:hover {
+    background: #ee950f;
+}
+
+.buttonSubmit:focus {
+    box-shadow: none;
+}
+
+.buttonSubmit:disabled { background: #ccc; }
+
+.helperText {
+    position:absolute;
+    font-size: 13px;
+    color: #d46161;
+    bottom:-18px;
+    left:8px;
+}
