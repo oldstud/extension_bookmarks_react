@@ -1,6 +1,8 @@
 body {
-  width: 400px;
-  background-color: #452c63;
+  width: 600px;
+  height: 400px;
+  background-color: #21D4FD;
+  background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);  
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -36,6 +38,12 @@ body {
 
 .App-link {
   color: #61dafb;
+}
+
+footer{
+  position: fixed;
+  bottom: 0;
+  padding: 10px;
 }
 
 @keyframes App-logo-spin {

@@ -7,11 +7,10 @@ import { LoginService } from "./services/login.helper.service";
 import { setInLocalStorage, getFromLocalStorage } from "./services/localstorage.helper.service";
 import { LOCALSTORAGE_KEYS } from "./constants/localstorage.constants";
 import { UserI } from "./interface/user.interface"
+import { addBookmarkService } from './services/bookmarks-actions.helper';
 
 function App() {
 
-  const [url, setUrl] = React.useState<string>('');
-  const [title, setTitle] = React.useState<string>('');
   const [userValue, setUser] = React.useState< UserI | null>(null);
 
   React.useEffect(() =>{
@@ -47,7 +46,7 @@ function App() {
     user && setUser(user);
   }
 
-  const handleTest = ():void => {
+  const addBookmarkToDB = async () => {
 
     chrome.tabs && chrome.tabs.query({
       active: true,
@@ -57,23 +56,32 @@ function App() {
       chrome.tabs.sendMessage(
         tabs[0].id || 0,
         { type: 'GET_DOM' } as DOMMessage,
-        (response: DOMMessageResponse) => {
-          setUrl(response.url);
-          setTitle(response.title)
+        async (response: DOMMessageResponse) => {
+          console.log('RESPONSE: ',response);
+
+          const sendObj =  { 
+              title: response.title?response.title:'',
+              description: response.title?response.title:'',
+              image: "https://cdn.pixabay.com/photo/2021/06/11/16/24/city-6328941_960_720.jpg",
+              urlMarkbook: response.url?response.url:''
+             };
+
+          const addData = await addBookmarkService(sendObj);
+        console.log('AFTER request: ', addData.data.data)
         });
     });
 
-    if(!url && !title) return;
-    console.log('hello from App',url,'__',title)
   }
 
   return (
     <div className="App">
       <header className="App-header">
-
-        <button onClick={ handleTest }>Click me</button>
-        <LoginForm onAddContact={ handlerLogin }/>
+        <button onClick={ addBookmarkToDB }>Add bookmark</button>
       </header>
+
+      <footer>
+        <LoginForm onAddContact={ handlerLogin }/>
+        </footer>
     </div>
   );
 }
