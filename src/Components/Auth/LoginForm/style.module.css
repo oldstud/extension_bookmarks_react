@@ -1,9 +1,8 @@
 
 .form {
-    width: 400px;
-    margin:20px auto;
     display:flex;
-    flex-direction: column;
+    gap:5px;
+    justify-content: flex-start;
 }
 
 .form label,
@@ -73,18 +72,16 @@
   position: relative;
   display: flex;
   flex-flow: column-reverse;
-  margin-bottom: 10px;
 }
 
 .controlWrapper_last {
     position: relative;
     display: flex;
     flex-flow: column-reverse;
-    margin-bottom: 35px;
 }  
 
 .buttonSubmit{
-    width: 200px;
+    width: 100px;
     height: 35px;
     border-radius: 4px;
     display: flex;
@@ -97,7 +94,7 @@
     background: #fbc133;
     border: none;
     outline: none;
-    align-self: center;
+    align-self: flex-end;
     -webkit-box-shadow: -2px 3px 5px 1px rgba(0,0,0,0.78); 
     box-shadow: -2px 3px 5px 1px rgba(0,0,0,0.78);
     transition: all 0.2s ease-in;

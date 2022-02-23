@@ -7,3 +7,8 @@ export {
     httpLogOut,
 } from './auth-http.service';
 
+export{
+    httpAddBookmark,
+    httpRemoveBookmark,
+} from './bookmarks-actions.service'
+
